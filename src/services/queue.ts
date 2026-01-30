@@ -1,11 +1,11 @@
 import { Queue, Worker } from 'bullmq';
 import Redis from 'ioredis';
-import { createLogger } from '@/utils/logger';
+import { createLogger } from '../utils/logger';
 import { salesAgentFlow } from './ai/salesAgent.js';
 import { platformAgentFlow } from './ai/platformAgent.js';
 import { WhatsAppService } from './whatsapp/client.js';
-import { db } from '@/database/client';
-import { messages, businesses, conversations } from '@/database/schema';
+import { db } from '../database/client';
+import { messages, businesses, conversations } from '../database/schema';
 import { eq, and } from 'drizzle-orm';
 import crypto from 'crypto';
 

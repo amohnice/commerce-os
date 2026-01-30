@@ -1,10 +1,10 @@
 import { ai } from './genkit.js';
 // import { gemini10Pro } from '@genkit-ai/googleai';
 import { z } from 'zod';
-import { db } from '@/database/client';
-import { products, conversations, customers, businesses, orders } from '@/database/schema';
+import { db } from '../../database/client';
+import { products, conversations, customers, businesses, orders } from '../../database/schema';
 import { eq, and, sql, desc } from 'drizzle-orm';
-import { createLogger } from '@/utils/logger';
+import { createLogger } from '../../utils/logger';
 
 const logger = createLogger('AI-Agent');
 

@@ -1,12 +1,12 @@
 import { z } from 'zod';
 import { ai } from './genkit.js';
-import { db } from '@/database/client';
-import { businesses, products, orders } from '@/database/schema';
+import { db } from '../../database/client';
+import { businesses, products, orders } from '../../database/schema';
 import { eq, and, sql } from 'drizzle-orm';
-import { createLogger } from '@/utils/logger';
+import { createLogger } from '../../utils/logger';
 
 
-import { MPesaService } from '@/services/payments/mpesa';
+import { MPesaService } from '../../services/payments/mpesa';
 
 const logger = createLogger('Platform-Agent');
 const mpesa = new MPesaService();
