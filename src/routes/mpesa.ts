@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 import { createLogger } from '@/utils/logger';
 import { MPesaService } from '@/services/payments/mpesa';
 import { db } from '@/database/client';
@@ -15,7 +15,7 @@ const whatsapp = new WhatsAppService();
 // STK PUSH CALLBACK
 // =============================================
 
-router.post('/callback', async (req, res) => {
+router.post('/callback', async (req: Request, res: Response) => {
     try {
         // Immediately acknowledge receipt
         res.status(200).json({
@@ -139,7 +139,7 @@ router.post('/callback', async (req, res) => {
 // B2C RESULT (Refunds/Payouts)
 // =============================================
 
-router.post('/b2c/result', async (req, res) => {
+router.post('/b2c/result', async (req: Request, res: Response) => {
     try {
         res.status(200).json({
             ResultCode: 0,
@@ -178,7 +178,7 @@ router.post('/b2c/result', async (req, res) => {
 // B2C TIMEOUT
 // =============================================
 
-router.post('/b2c/timeout', async (req, res) => {
+router.post('/b2c/timeout', async (req: Request, res: Response) => {
     try {
         res.status(200).json({
             ResultCode: 0,

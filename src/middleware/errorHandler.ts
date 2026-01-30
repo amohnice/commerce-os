@@ -1,12 +1,13 @@
-import { Request, Response } from 'express';
+import { Request, Response, NextFunction } from 'express';
 import { createLogger } from '@/utils/logger';
 
 const logger = createLogger('ErrorHandler');
 
 export function errorHandler(
-    err: Error,
+    err: any,
     req: Request,
-    res: Response
+    res: Response,
+    _next: NextFunction
 ) {
     logger.error('Unhandled error', {
         error: err.message,

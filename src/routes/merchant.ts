@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { db } from '@/database/client';
 import { products, orders, customers } from '@/database/schema';
 import { eq, and, desc, sql, gte } from 'drizzle-orm';
@@ -13,7 +13,7 @@ const logger = createLogger('MerchantAPI');
 // =============================================
 
 // Get all products
-router.get('/products', async (req, res, next) => {
+router.get('/products', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const businessId = (req as any).businessId;
 
@@ -42,7 +42,7 @@ const CreateProductSchema = z.object({
     stockQuantity: z.number().int().min(0).default(0),
 });
 
-router.post('/products', async (req, res, next) => {
+router.post('/products', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const data = CreateProductSchema.parse(req.body);
@@ -70,7 +70,7 @@ router.post('/products', async (req, res, next) => {
 });
 
 // Update product
-router.patch('/products/:id', async (req, res, next) => {
+router.patch('/products/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const productId = req.params.id;
@@ -81,7 +81,7 @@ router.patch('/products/:id', async (req, res, next) => {
                 updatedAt: new Date(),
             })
             .where(and(
-                eq(products.id, productId),
+                eq(products.id, productId as string),
                 eq(products.businessId, businessId)
             ))
             .returning();
@@ -105,14 +105,14 @@ router.patch('/products/:id', async (req, res, next) => {
 });
 
 // Delete product
-router.delete('/products/:id', async (req, res, next) => {
+router.delete('/products/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const productId = req.params.id;
 
         const [deleted] = await db.delete(products)
             .where(and(
-                eq(products.id, productId),
+                eq(products.id, productId as string),
                 eq(products.businessId, businessId)
             ))
             .returning();
@@ -140,7 +140,7 @@ router.delete('/products/:id', async (req, res, next) => {
 // =============================================
 
 // Get all orders
-router.get('/orders', async (req, res, next) => {
+router.get('/orders', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const status = req.query.status as string | undefined;
@@ -165,7 +165,7 @@ router.get('/orders', async (req, res, next) => {
 });
 
 // Get single order
-router.get('/orders/:id', async (req, res, next) => {
+router.get('/orders/:id', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const orderId = req.params.id;
@@ -173,7 +173,7 @@ router.get('/orders/:id', async (req, res, next) => {
         const [order] = await db.select()
             .from(orders)
             .where(and(
-                eq(orders.id, orderId),
+                eq(orders.id, orderId as string),
                 eq(orders.businessId, businessId)
             ))
             .limit(1);
@@ -197,7 +197,7 @@ router.get('/orders/:id', async (req, res, next) => {
 });
 
 // Update order status
-router.patch('/orders/:id/status', async (req, res, next) => {
+router.patch('/orders/:id/status', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const orderId = req.params.id;
@@ -209,7 +209,7 @@ router.patch('/orders/:id/status', async (req, res, next) => {
                 ...(status === 'COMPLETED' && { completedAt: new Date() }),
             })
             .where(and(
-                eq(orders.id, orderId),
+                eq(orders.id, orderId as string),
                 eq(orders.businessId, businessId)
             ))
             .returning();
@@ -237,7 +237,7 @@ router.patch('/orders/:id/status', async (req, res, next) => {
 // =============================================
 
 // Get all customers
-router.get('/customers', async (req, res, next) => {
+router.get('/customers', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const businessId = (req as any).businessId;
 
@@ -260,7 +260,7 @@ router.get('/customers', async (req, res, next) => {
 // =============================================
 
 // Dashboard stats
-router.get('/analytics/dashboard', async (req, res, next) => {
+router.get('/analytics/dashboard', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const period = req.query.period || '7d'; // 7d, 30d, 90d
@@ -329,7 +329,7 @@ router.get('/analytics/dashboard', async (req, res, next) => {
 });
 
 // Sales by day
-router.get('/analytics/sales-by-day', async (req, res, next) => {
+router.get('/analytics/sales-by-day', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const days = parseInt(req.query.days as string) || 7;
@@ -358,7 +358,7 @@ router.get('/analytics/sales-by-day', async (req, res, next) => {
 });
 
 // Top products
-router.get('/analytics/top-products', async (req, res, next) => {
+router.get('/analytics/top-products', async (req: Request, res: Response, next: NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const limit = parseInt(req.query.limit as string) || 10;

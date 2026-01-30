@@ -1,4 +1,4 @@
-import express, { Express } from 'express';
+import express, { Application } from 'express';
 import helmet from 'helmet';
 import cors from 'cors';
 import { rateLimit } from 'express-rate-limit';
@@ -13,7 +13,7 @@ import { tenantMiddleware } from './middleware/tenant.js';
 // Load environment variables
 dotenv.config();
 
-const app: Express = express();
+const app: Application = express();
 const logger = createLogger('Server');
 const PORT = process.env.PORT || 3000;
 

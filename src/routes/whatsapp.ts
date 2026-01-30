@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import { Router, Request, Response } from 'express';
 
 import { createLogger } from '@/utils/logger';
 import { enqueueMessage } from '@/services/queue';
@@ -11,7 +11,7 @@ const logger = createLogger('WhatsApp');
 // WEBHOOK VERIFICATION (Meta requirement)
 // =============================================
 
-router.get('/', (req, res) => {
+router.get('/', (req: Request, res: Response) => {
     const mode = req.query['hub.mode'];
     const token = req.query['hub.verify_token'];
     const challenge = req.query['hub.challenge'];
@@ -86,7 +86,7 @@ const WhatsAppMessageSchema = z.object({
     })),
 });
 
-router.post('/', async (req, res) => {
+router.post('/', async (req: Request, res: Response) => {
     try {
         // Immediately respond 200 to Meta (required)
         res.sendStatus(200);
