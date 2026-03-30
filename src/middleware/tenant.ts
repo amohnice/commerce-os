@@ -1,11 +1,11 @@
-import { Request, Response, NextFunction } from 'express';
+import express from 'express';
 import { db } from '../database/client.js';
 import { sql } from 'drizzle-orm';
 
 export async function tenantMiddleware(
-    req: Request,
-    res: Response,
-    next: NextFunction
+    req: express.Request,
+    res: express.Response,
+    next: express.NextFunction
 ): Promise<void> {
     try {
         // Extract business ID from:

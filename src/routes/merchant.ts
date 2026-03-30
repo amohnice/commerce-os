@@ -1,4 +1,4 @@
-import { Router, Request, Response, NextFunction } from 'express';
+import express, { Router } from 'express';
 import { db } from '../database/client.js';
 import { products, orders, customers } from '../database/schema.js';
 import { eq, and, desc, sql, gte } from 'drizzle-orm';
@@ -13,7 +13,7 @@ const logger = createLogger('MerchantAPI');
 // =============================================
 
 // Get all products
-router.get('/products', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/products', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const businessId = (req as any).businessId;
 
@@ -42,7 +42,7 @@ const CreateProductSchema = z.object({
     stockQuantity: z.number().int().min(0).default(0),
 });
 
-router.post('/products', async (req: Request, res: Response, next: NextFunction) => {
+router.post('/products', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const data = CreateProductSchema.parse(req.body);
@@ -70,7 +70,7 @@ router.post('/products', async (req: Request, res: Response, next: NextFunction)
 });
 
 // Update product
-router.patch('/products/:id', async (req: Request, res: Response, next: NextFunction) => {
+router.patch('/products/:id', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const productId = req.params.id;
@@ -105,7 +105,7 @@ router.patch('/products/:id', async (req: Request, res: Response, next: NextFunc
 });
 
 // Delete product
-router.delete('/products/:id', async (req: Request, res: Response, next: NextFunction) => {
+router.delete('/products/:id', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const productId = req.params.id;
@@ -140,7 +140,7 @@ router.delete('/products/:id', async (req: Request, res: Response, next: NextFun
 // =============================================
 
 // Get all orders
-router.get('/orders', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/orders', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const status = req.query.status as string | undefined;
@@ -165,7 +165,7 @@ router.get('/orders', async (req: Request, res: Response, next: NextFunction) =>
 });
 
 // Get single order
-router.get('/orders/:id', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/orders/:id', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const orderId = req.params.id;
@@ -197,7 +197,7 @@ router.get('/orders/:id', async (req: Request, res: Response, next: NextFunction
 });
 
 // Update order status
-router.patch('/orders/:id/status', async (req: Request, res: Response, next: NextFunction) => {
+router.patch('/orders/:id/status', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const orderId = req.params.id;
@@ -237,7 +237,7 @@ router.patch('/orders/:id/status', async (req: Request, res: Response, next: Nex
 // =============================================
 
 // Get all customers
-router.get('/customers', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/customers', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const businessId = (req as any).businessId;
 
@@ -260,7 +260,7 @@ router.get('/customers', async (req: Request, res: Response, next: NextFunction)
 // =============================================
 
 // Dashboard stats
-router.get('/analytics/dashboard', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/analytics/dashboard', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const period = req.query.period || '7d'; // 7d, 30d, 90d
@@ -329,7 +329,7 @@ router.get('/analytics/dashboard', async (req: Request, res: Response, next: Nex
 });
 
 // Sales by day
-router.get('/analytics/sales-by-day', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/analytics/sales-by-day', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const days = parseInt(req.query.days as string) || 7;
@@ -358,7 +358,7 @@ router.get('/analytics/sales-by-day', async (req: Request, res: Response, next: 
 });
 
 // Top products
-router.get('/analytics/top-products', async (req: Request, res: Response, next: NextFunction) => {
+router.get('/analytics/top-products', async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
         const businessId = (req as any).businessId;
         const limit = parseInt(req.query.limit as string) || 10;

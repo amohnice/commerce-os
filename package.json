@@ -5,8 +5,9 @@
   "main": "dist/index.js",
   "type": "module",
   "scripts": {
+    "clean": "rm -rf dist",
     "dev": "tsx watch src/index.ts",
-    "build": "tsc",
+    "build": "npm run clean && tsc",
     "start": "node dist/index.js",
     "db:generate": "drizzle-kit generate",
     "db:migrate": "tsx src/database/migrate.ts",

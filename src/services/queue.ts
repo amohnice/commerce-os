@@ -1,5 +1,5 @@
 import { Queue, Worker } from 'bullmq';
-import Redis from 'ioredis';
+import { Redis } from 'ioredis';
 import { createLogger } from '../utils/logger.js';
 import { salesAgentFlow } from './ai/salesAgent.js';
 import { platformAgentFlow } from './ai/platformAgent.js';

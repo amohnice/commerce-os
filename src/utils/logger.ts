@@ -15,7 +15,7 @@ export function createLogger(service: string) {
                 new winston.transports.File({
                     filename: 'logs/error.log',
                     level: 'error',
-                }),
+                } as any),
                 new winston.transports.File({
                     filename: 'logs/combined.log',
                 }),

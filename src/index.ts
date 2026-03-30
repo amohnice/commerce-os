@@ -43,7 +43,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 
 // Request logging
-app.use((req, _res, next) => {
+app.use((req: express.Request, _res: express.Response, next: express.NextFunction) => {
     logger.info(`${req.method} ${req.path}`, {
         ip: req.ip,
         userAgent: req.get('user-agent'),
@@ -56,7 +56,7 @@ app.use((req, _res, next) => {
 // =============================================
 
 app.get('/', (_req, res) => {
-  res.send(`
+    res.send(`
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -267,7 +267,7 @@ app.use('/api/merchant', tenantMiddleware, merchantRouter);
 // =============================================
 
 // 404 handler
-app.use((req, res) => {
+app.use((req: express.Request, res: express.Response) => {
     res.status(404).json({
         error: 'Not Found',
         message: `Route ${req.method} ${req.path} not found`,
