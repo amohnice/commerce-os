@@ -232,7 +232,7 @@ app.get('/', (_req, res) => {
                 
                 <div class="footer">
                     <div class="footer-content">
-                        Built for modern businesses. © 2024 Commerce OS. All rights reserved.
+                        Built for modern businesses. © 2024 WappStore. All rights reserved.
                     </div>
                 </div>
             </div>
@@ -283,7 +283,7 @@ app.use(errorHandler);
 
 if (process.env.NODE_ENV !== 'production' || process.env.VERCEL_ENV === undefined) {
     app.listen(PORT, () => {
-        logger.info(`🚀 Commerce OS running on port ${PORT}`);
+        logger.info(`🚀 WappStore running on port ${PORT}`);
         logger.info(`📱 WhatsApp webhook: ${process.env.API_BASE_URL}/webhooks/whatsapp`);
         logger.info(`💰 M-Pesa callback: ${process.env.API_BASE_URL}/webhooks/mpesa`);
         logger.info(`🏪 Environment: ${process.env.NODE_ENV}`);

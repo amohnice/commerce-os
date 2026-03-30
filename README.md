@@ -61,7 +61,7 @@ This project is optimized for Vercel Serverless Functions.
 
 ## 🧪 Testing & Processing Modes
 
-Commerce OS supports two processing modes:
+WappStore supports two processing modes:
 
 | Mode | Trigger | Use Case | Requirements |
 |---|---|---|---|
